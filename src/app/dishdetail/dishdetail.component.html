@@ -23,14 +23,16 @@
     </div>
 
     <div fxFlex="40">
-        <mat-list *ngIf="dish">
-            <h3>Comments</h3>
-            <mat-list-item *ngFor="let comment of dish.comments">
-                <h4 matLine> {{comment.comment}}</h4>
-                <p matLine>{{comment.rating}} Stars </p>
-                <p matLine> -- {{comment.author}} {{comment.date | date}} </p>
-
-            </mat-list-item>
-        </mat-list>
+        <mat-card>
+            <mat-list *ngIf="dish">
+                <h3>Comments</h3>
+                <mat-list-item *ngFor="let comment of dish.comments">
+                    <h4 matLine> {{comment.comment}}</h4>
+                    <p matLine>{{comment.rating}} Stars </p>
+                    <p matLine> -- {{comment.author}} {{comment.date | date}} </p>
+                </mat-list-item>
+            </mat-list>    
+        </mat-card>
+        
     </div>
 </div>

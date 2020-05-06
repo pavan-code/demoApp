@@ -1,6 +1,5 @@
-// import { Comment } from './Comment';
 
- class Comment {
+class Comment {
     rating: number;
     comment: string;
     author: string;
