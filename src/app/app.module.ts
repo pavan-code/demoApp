@@ -15,6 +15,7 @@ import { DishdetailComponent } from './dishdetail/dishdetail.component';
 import { DishService } from './services/dish.service';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
+import { ContactComponent } from './contact/contact.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { FooterComponent } from './footer/footer.component';
     MenuComponent,
     DishdetailComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    ContactComponent
   ],
   imports: [
     BrowserModule,
