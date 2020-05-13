@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
+
 import 'hammerjs';
 import { MenuComponent } from './menu/menu.component';
 import { DishdetailComponent } from './dishdetail/dishdetail.component';
@@ -16,6 +17,8 @@ import { DishService } from './services/dish.service';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { ContactComponent } from './contact/contact.component';
+import { PromotionService } from './services/promotion.service';
+import { HomeComponent } from './home/home.component'
 
 @NgModule({
   declarations: [
@@ -24,7 +27,8 @@ import { ContactComponent } from './contact/contact.component';
     DishdetailComponent,
     HeaderComponent,
     FooterComponent,
-    ContactComponent
+    ContactComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -38,7 +42,8 @@ import { ContactComponent } from './contact/contact.component';
     MatButtonModule
   ],
   providers: [
-    DishService
+    DishService,
+    PromotionService
   ],
   bootstrap: [AppComponent]
 })
