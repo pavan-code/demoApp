@@ -39,24 +39,35 @@
   <div fxFlex fxFlexOffset = "20px" class="form-size">
     <h3>Send us feedback</h3>
     <p>
-      {{feedbackForm.value | json}} {{feedbackForm.status | json }}
+      {{feedbackForm.value | json}}
     </p>
     <form (ngSubmit)='submit()' novalidate [formGroup]="feedbackForm">
       <p>
         <mat-form-field>
-          <input type="text" matInput formControlName="firstname" placeholder="First name">
-          
+          <input type="text" matInput formControlName="firstname" placeholder="First name" required>
+          <mat-error *ngIf = "formErrors.firstname">
+            {{formErrors.firstname}}
+          </mat-error>
         </mat-form-field>
         <mat-form-field>
-          <input type="text" matInput formControlName="lastname" placeholder="Last name">
+          <input type="text" matInput formControlName="lastname" placeholder="Last name" required>
+          <mat-error *ngIf = "formErrors.lastname">
+            {{formErrors.lastname}}
+          </mat-error>
         </mat-form-field>
       </p>
       <p>
         <mat-form-field>
-          <input type="tel" matInput formControlName="telnum" placeholder="Tel number">
+          <input type="tel" matInput formControlName="telnum" placeholder="Tel number" required pattern="[0-9]*">
+          <mat-error *ngIf = "formErrors.telnum">
+            {{formErrors.telnum}}
+          </mat-error>
         </mat-form-field>
         <mat-form-field class="half-width">
-          <input type="text" matInput formControlName="email" placeholder="Email">
+          <input type="text" matInput formControlName="email" placeholder="Email" required email>
+          <mat-error *ngIf = "formErrors.email">
+            {{formErrors.email}}
+          </mat-error>
         </mat-form-field>
       </p>
       
