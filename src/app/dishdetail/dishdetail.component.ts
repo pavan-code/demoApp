@@ -1,9 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { Dish } from '../shared/dish';
 import { Params, ActivatedRoute} from '@angular/router';
 import { Location } from '@angular/common';
 import { DishService } from '../services/dish.service';
-import { switchMap } from 'rxjs/operators'
+import { switchMap } from 'rxjs/operators';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { Comment } from '../shared/Comment';
+
 
 @Component({
   selector: 'app-dishdetail',
@@ -16,9 +19,69 @@ export class DishdetailComponent implements OnInit {
   dishIds: string[];
   prev: string;
   next: string;
+  commentForm: FormGroup;
+  comment: Comment;
+  commentErrors = {
+    'author' : '',
+    'comment': ''
+  }
+  validationMessages = {
+    'author' : {
+      'required': 'Author Name is required',
+      'minlength': 'Author Name must be at least 2 characters long'
+    },
+    'comment': {
+      'required': 'Comment is required'
+    }
+  }
+  Date: string;
+
   constructor(private dishservice: DishService,
     private route: ActivatedRoute,
-    private location: Location) { }
+    private location: Location,
+    private fb: FormBuilder,
+    @Inject('baseURL') private baseURL) { 
+      this.createFrom();
+    }
+    createFrom() {
+      this.commentForm = this.fb.group({
+        author: ['', [Validators.required, Validators.minLength(2)]],
+        rating: ['5'],
+        comment: ['', [Validators.required]]
+      });
+      this.commentForm.valueChanges
+      .subscribe(data => this.onValueChanged(data));
+    }
+    onValueChanged(data?: any) {
+      if (!this.commentForm) { return; } 
+      const form = this.commentForm;
+      for (const field in this.commentErrors) {
+        if (this.commentErrors.hasOwnProperty(field)) {
+          // clear previuos error messages if any
+          this.commentErrors[field] = '';
+          const control = form.get(field);
+          if (control && control.dirty && !control.valid) {
+            const messages = this.validationMessages[field];
+            for (const key in control.errors) {
+              if (control.errors.hasOwnProperty(key)) {
+                this.commentErrors[field] += messages[key];
+              }
+            }
+          }
+        }
+      }
+    }
+    submit() {
+      this.comment = this.commentForm.value;
+      this.Date = new Date().toString();
+      this.comment.date = this.Date;
+      this.dish.comments.push(this.comment);
+      this.commentForm.reset({
+        author:'',
+        rating: '5',
+        comment: ''
+      });
+    }
   ngOnInit(): void {
     this.dishservice.getDishIds()
     .subscribe((dishIds) => this.dishIds = dishIds);
