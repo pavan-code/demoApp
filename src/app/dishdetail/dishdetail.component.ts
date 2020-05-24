@@ -19,7 +19,9 @@ export class DishdetailComponent implements OnInit {
   dishIds: string[];
   prev: string;
   next: string;
+  errMsg: string;
   commentForm: FormGroup;
+  dishCopy: Dish;
   comment: Comment;
   commentErrors = {
     'author' : '',
@@ -40,7 +42,7 @@ export class DishdetailComponent implements OnInit {
     private route: ActivatedRoute,
     private location: Location,
     private fb: FormBuilder,
-    @Inject('baseURL') private baseURL) { 
+    @Inject('baseURL') public baseURL) { 
       this.createFrom();
     }
     createFrom() {
@@ -75,7 +77,15 @@ export class DishdetailComponent implements OnInit {
       this.comment = this.commentForm.value;
       this.Date = new Date().toString();
       this.comment.date = this.Date;
-      this.dish.comments.push(this.comment);
+      this.dishCopy.comments.push(this.comment);
+      this.dishservice.pustDish(this.dishCopy)
+      .subscribe(dish=> {
+        this.dish = dish;
+        this.dishCopy = dish;
+      },
+        errmess => { this.dish = null;
+        this.dishCopy = null; this.errMsg = <any>errmess})
+
       this.commentForm.reset({
         author:'',
         rating: '5',
@@ -88,8 +98,10 @@ export class DishdetailComponent implements OnInit {
      let id = this.route.params.pipe(switchMap((params: Params) => this.dishservice.getDish(params['id'])))
      .subscribe(dish => {
        this.dish = dish;
+       this.dishCopy = dish;
        this.setPrevNext(dish.id);
-      });
+      },
+      errMsg => this.errMsg = <any>errMsg);
   }
   setPrevNext(dishId: string) {
     const index = this.dishIds.indexOf(dishId);

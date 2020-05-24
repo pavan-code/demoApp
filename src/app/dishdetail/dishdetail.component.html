@@ -1,9 +1,9 @@
 <div class="container" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column"
     fxLayoutAlign.gt-md="space-around center" fxLayoutGap="10px" fxLayoutGap.xs="0">
 
-    <div fxFlex="40"  *ngIf="dish">
+    <div fxFlex="40">
 
-        <div fxFlex>
+        <div fxFlex *ngIf = "dish">
             <mat-card>
                 <mat-card-header>
                     <mat-card-title>
@@ -29,8 +29,12 @@
                 </mat-card-actions>
             </mat-card>
         </div>
-        <div fxFlex [hidden] = "dish">
+        <div fxFlex [hidden] = "dish || errMsg">
             <mat-spinner></mat-spinner> <h4>Loading . . . Please wait</h4>
+        </div>
+        <div fxFlex *ngIf = "errMsg">
+            <h2>Error</h2>
+            <h4>{{errMsg}} </h4>
         </div>
     </div>
 

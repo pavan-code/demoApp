@@ -32,6 +32,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
 import { MatSliderModule } from '@angular/material/slider'
 import { baseURL } from './shared/baseurl';
+import { ProcessHTTPMsgService} from './services/process-httpmsg.service'
 
 @NgModule({ 
   declarations: [
@@ -71,6 +72,7 @@ import { baseURL } from './shared/baseurl';
     DishService,
     PromotionService,
     LeaderService,
+    ProcessHTTPMsgService,
     { provide: 'baseURL', useValue: baseURL}
   ],
   entryComponents: [
