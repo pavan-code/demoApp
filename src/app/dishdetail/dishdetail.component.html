@@ -3,7 +3,7 @@
 
     <div fxFlex="40">
 
-        <div fxFlex *ngIf = "dish">
+        <div fxFlex *ngIf = "dish" [@visibility]='visibility' [@expand]>
             <mat-card>
                 <mat-card-header>
                     <mat-card-title>
@@ -38,7 +38,7 @@
         </div>
     </div>
 
-    <div fxFlex="40" *ngIf="dish" fxLayout="column">
+    <div fxFlex="40" *ngIf="dish" fxLayout="column" [@visibility]='visibility' [@expand]>
         
             <mat-list>
                 <h3>Comments</h3>
