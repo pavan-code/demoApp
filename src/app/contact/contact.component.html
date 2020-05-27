@@ -36,12 +36,13 @@
       </div>
     </div>
   </div>
-  <div fxFlex fxFlexOffset = "20px" class="form-size">
-    <h3>Send us feedback</h3>
+  <div fxFlex fxFlexOffset = "20px" class="form-size" [@expand]>
+    <h3>Send us your feedback</h3>
     <p>
-      {{feedbackForm.value | json}}
+      <!-- {{feedbackForm.value | json}} -->
+      <!-- {{feedbackCopy | json}} -->
     </p>
-    <form (ngSubmit)='submit()' novalidate [formGroup]="feedbackForm">
+    <form (ngSubmit)='onSubmit()' novalidate [formGroup]="feedbackForm" *ngIf = "!display">
       <p>
         <mat-form-field>
           <input type="text" matInput formControlName="firstname" placeholder="First name" required>
@@ -91,8 +92,25 @@
           <textarea matInput formControlName='message' placeholder="Your feedback" rows="12"></textarea>
         </mat-form-field>
       </p>   
-      <button mat-button type="submit" color="primary" [disabled]="feedbackForm.invalid">Submit </button>
+      <button mat-raised-button type="submit" color="primary" [disabled]="feedbackForm.invalid">Submit </button>
     </form>
+
+    <div *ngIf = "!feedbackCopy && display" [@expand]>
+      <h3>Submitting Form</h3>
+      <mat-spinner></mat-spinner>
+    </div>
+
+    <div *ngIf = "feedbackCopy" [@expand]>
+      <h3>Your Submission</h3>
+      <p>First Name : {{feedbackCopy.firstname}}</p>
+      <p>Last Name : {{feedbackCopy.lastname}} </p>
+      <p>Tel. Number: {{feedbackCopy.telnum}} </p>
+      <p>Email: {{feedbackCopy.email}} </p>
+      <p>Contact You?: {{feedbackCopy.agree}} </p>
+      <p>How?: {{feedbackCopy.contacttype}} </p>
+      <p>Feedback: {{feedbackCopy.message}}</p>
+    </div>
   </div>
 </div>
+
 

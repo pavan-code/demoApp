@@ -4,7 +4,7 @@ export class feedback {
     telnum: number;
     email: string;
     agree: boolean;
-    contactype: string;
+    contacttype: string;
     message: string;
 }
 

@@ -90,7 +90,7 @@ export class DishdetailComponent implements OnInit {
       this.Date = new Date().toString();
       this.comment.date = this.Date;
       this.dishCopy.comments.push(this.comment);
-      this.dishservice.pustDish(this.dishCopy)
+      this.dishservice.putDish(this.dishCopy)
       .subscribe(dish=> {
         this.dish = dish;
         this.dishCopy = dish;

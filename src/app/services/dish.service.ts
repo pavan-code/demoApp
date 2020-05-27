@@ -37,7 +37,7 @@ export class DishService {
     .pipe(catchError(error => error));
   }
 
-  pustDish(dish: Dish): Observable<Dish> {
+  putDish(dish: Dish): Observable<Dish> {
      const httpOptions = {
        headers: new HttpHeaders({
          'Content-type': 'application/json'
